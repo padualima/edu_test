@@ -1,24 +1,51 @@
-# README
+# Ranking of Deputies' spending
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-Things you may want to cover:
+## About the current test
+Our challenge is to analyze some data made available by the Chamber of Deputies regarding the expenses of parliamentarians. The idea is to find out who, from your state, has the most and show off by spending those main expenses!
 
-* Ruby version
+Have you heard of CEAP? The Quota for the Exercise of Parliamentary Activity, defrays the principal's expenses, such as airline tickets and cell phone bill. Some reimbursed, as with the Post Office, and others are paid by automatic debit, such as the purchase of tickets. In the case of reimbursement, Members have three months to present receipts. The unused monthly amount accumulates throughout the year. For this reason, in some months the amount spent may be higher than the monthly average. (Source: [Portal of the Chamber of Deputies](https://www2.camara.leg.br/transparencia/acesso-a-informacao/copy_of_perguntas-frequentes/cota-para-o-exercicio-da-atividade-parlamentar)). Through the transparency portal, we have access to these expenses and we can know how and where they are spending.
 
-* System dependencies
+## Get Started!
 
-* Configuration
+Inside the project directory:
 
-* Database creation
+Run the command below to copy the `.env`, and yo will have to change PostgreSQL credentials with based on your local credentials!
 
-* Database initialization
+```
+cp .env.sample .env
+```
 
-* How to run the test suite
+### Ruby on Rails
+Given that you have the Ruby(3.0.4), Rails(7.0.4) and DB PostgreSQL versions installed:
 
-* Services (job queues, cache servers, search engines, etc.)
+Install the gems
+```
+bundle install
+```
 
-* Deployment instructions
+Creating and migrating database:
+```
+rails db:create
+rails db:migrate
+```
 
-* ...
+Go up the application:
+```
+bin/dev
+```
+
+**If you want to run the tests**:
+```
+bundle exec rspec spec
+```
+
+## Who to use
+After go up Application, now with the domain localhost http://localhost:3000 you will have access to the root_path application.
+
+## License
+
+MIT
+
+**Free Software, Hell Yeah!**
