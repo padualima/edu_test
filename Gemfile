@@ -56,6 +56,12 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   # A Ruby gem to load environment variables from `.env`.
   gem 'dotenv-rails', '~> 2.1'
+  # Test with RSpec
+  gem 'rspec-rails', '~> 6.0.0'
+  # Create Factories for test, example generate: rails factory_bot:model
+  gem 'factory_bot_rails', '~> 6.2'
+  # A library for generating fake data such as names, addresses, and phone numbers.
+  gem 'faker', '~> 3.0'
 end
 
 group :development do
