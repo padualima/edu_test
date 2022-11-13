@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_034317) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_13_135940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_034317) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ancestry"
+    t.integer "kind", limit: 2, default: 0
     t.index ["ancestry"], name: "index_node_groups_on_ancestry"
   end
 
