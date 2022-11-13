@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :portfolios, only: %i[index] do
     collection do
       get 'upload_data'
+      post 'synchronize'
     end
   end
   # Defines the root path route ("/")
