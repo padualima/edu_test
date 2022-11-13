@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :node_group do
-    slug { Faker::Internet.slug }
+    slug { rand((Time.current - 10.year)..Time.current).year.to_s }
   end
 end

@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :parliamentary_expense do
-    ide_document { "MyString" }
+    ide_document { Faker::Number.number(digits: 7).to_s }
     portfolio factory: :portfolio
     company factory: :company
     subquota_number { Faker::Number.number(digits: 2) }
-    subquota_specification_number { Faker::Number.number(digits: 0) }
+    subquota_specification_number { Faker::Number.number(digits: 1) }
     description { Faker::Lorem.sentence(word_count: 3, supplemental: true, random_words_to_add: 4).upcase }
     exact_description { Faker::Lorem.paragraph(sentence_count: 2, supplemental: true).upcase }
     document_type { Faker::Number.number(digits: 2).to_s }
