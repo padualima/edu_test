@@ -67,6 +67,8 @@ group :development, :test do
   gem 'faker', '~> 3.0'
   # Generates Brazilian CPF numbers for use in testing.
   gem 'cpf_faker', '~> 1.3'
+  # Pry is a runtime developer console and IRB alternative with powerful introspection capabilities.
+  gem 'pry', '~> 0.13.1'
 end
 
 group :development do
