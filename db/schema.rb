@@ -35,4 +35,20 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+  create_table "portfolios", force: :cascade do |t|
+    t.bigint "node_group_id", null: false
+    t.bigint "member_id", null: false
+    t.string "uf", limit: 2
+    t.string "parliamentary_number"
+    t.string "legislature", limit: 4
+    t.string "legislature_code", limit: 10
+    t.string "political_party", limit: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_portfolios_on_member_id"
+    t.index ["node_group_id"], name: "index_portfolios_on_node_group_id"
+  end
+
+  add_foreign_key "portfolios", "members"
+  add_foreign_key "portfolios", "node_groups"
 end
