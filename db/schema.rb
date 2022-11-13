@@ -14,6 +14,15 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "members", force: :cascade do |t|
+    t.string "name"
+    t.string "cpf", limit: 11
+    t.string "ide", limit: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["id", "ide"], name: "index_members_on_id_and_ide", unique: true
+  end
+
   create_table "node_groups", force: :cascade do |t|
     t.string "slug", limit: 4, null: false
     t.datetime "created_at", null: false
