@@ -1,0 +1,2 @@
+class NodeGroup < ApplicationRecord
+end
