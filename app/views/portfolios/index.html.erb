@@ -1,1 +1,23 @@
-<h1>Portolio index here</h1>
+<h1>Portfolio index</h1>
+<% if @portfolios.count.positive? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Member Id</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @portfolios.each do |portfolio| %>
+        <tr>
+          <td><%= portfolio.member.id %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h3> Importe o primeiro arquivo (.csv)!</h3>
+  <%= turbo_frame_tag "upload_data" do %>
+    <%= link_to 'Importe', upload_data_portfolios_path %>
+  <% end %>
+<% end %>

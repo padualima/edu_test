@@ -1,0 +1,20 @@
+<%= form_with(scope: :upload_data, url: synchronize_portfolios_path) do |form| %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+
+  <div class="m-3">
+    <%= form.label :filter %>
+    <%= form.select :filter, options_for_select(@states), prompt: "Selecione um Estado" %>
+    <p>* caso não selecione um estado, iremos importar todos os estados do arquivo</p>
+  </div>
+
+  <div class="m-3">
+    <%= form.label :data %>
+    <%= form.file_field :data, required: true %>
+  </div>
+
+  <div class="m-3">
+    <%= form.submit "Importar" %>
+  </div>
+<% end %>
