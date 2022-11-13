@@ -62,6 +62,8 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.2'
   # A library for generating fake data such as names, addresses, and phone numbers.
   gem 'faker', '~> 3.0'
+  # Generates Brazilian CPF numbers for use in testing.
+  gem 'cpf_faker', '~> 1.3'
 end
 
 group :development do
