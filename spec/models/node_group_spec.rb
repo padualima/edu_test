@@ -56,7 +56,7 @@ RSpec.describe NodeGroup, type: :model do
       end
 
       context "when slug is a disallowed abbreviation state" do
-        let(:node_group) { build(:node_group, slug: "SPP") }
+        let(:node_group) { build(:node_group, slug: "SPP", kind: NodeGroup.kinds.keys[1]) }
 
         it "should not be valid" do
           expect(node_group).to_not be_valid
@@ -70,7 +70,10 @@ RSpec.describe NodeGroup, type: :model do
           let(:sibling_group) { build(:node_group, slug: node_group.slug) }
 
           it "should not be valid" do
-            expect(node_group).to_not be_valid
+            expect(sibling_group).to_not be_valid
+            expect(sibling_group.errors.full_messages)
+              .to match(["Slug Already exists a NodeGroup with same slug"])
+            expect { sibling_group }.to change(NodeGroup, :count).by(0)
           end
         end
       end
