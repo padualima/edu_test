@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_12_233947) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,29 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "parliamentary_expenses", force: :cascade do |t|
+    t.bigint "portfolio_id", null: false
+    t.bigint "company_id", null: false
+    t.string "ide_document", limit: 15
+    t.integer "subquota_number"
+    t.integer "subquota_specification_number"
+    t.string "description", null: false
+    t.text "exact_description"
+    t.string "document_type", limit: 15
+    t.integer "value_cents", null: false
+    t.string "refund_value_cents"
+    t.string "refund_number"
+    t.string "lot_number", limit: 20
+    t.string "reference_month", limit: 2
+    t.string "reference_year", limit: 4
+    t.date "issue_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_parliamentary_expenses_on_company_id"
+    t.index ["portfolio_id"], name: "index_parliamentary_expenses_on_portfolio_id"
+  end
+
   create_table "portfolios", force: :cascade do |t|
     t.bigint "node_group_id", null: false
     t.bigint "member_id", null: false
@@ -49,6 +72,8 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.index ["node_group_id"], name: "index_portfolios_on_node_group_id"
   end
 
+  add_foreign_key "parliamentary_expenses", "companies"
+  add_foreign_key "parliamentary_expenses", "portfolios"
   add_foreign_key "portfolios", "members"
   add_foreign_key "portfolios", "node_groups"
 end
