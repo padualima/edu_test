@@ -7,6 +7,9 @@ Our challenge is to analyze some data made available by the Chamber of Deputies 
 
 Have you heard of CEAP? The Quota for the Exercise of Parliamentary Activity, defrays the principal's expenses, such as airline tickets and cell phone bill. Some reimbursed, as with the Post Office, and others are paid by automatic debit, such as the purchase of tickets. In the case of reimbursement, Members have three months to present receipts. The unused monthly amount accumulates throughout the year. For this reason, in some months the amount spent may be higher than the monthly average. (Source: [Portal of the Chamber of Deputies](https://www2.camara.leg.br/transparencia/acesso-a-informacao/copy_of_perguntas-frequentes/cota-para-o-exercicio-da-atividade-parlamentar)). Through the transparency portal, we have access to these expenses and we can know how and where they are spending.
 
+## Result of Lean Inception
+Here the [Documentation](https://docs.google.com/document/d/12Rltk_ESFDbCa1BctZe_0zn9rVdvejU7U2sWA-kt36E/edit?usp=sharing) made available of the result of the Lean Inception for the development of the APP.
+
 ## Get Started!
 
 Inside the project directory:
