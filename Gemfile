@@ -47,6 +47,8 @@ gem "bootsnap", require: false
 
 # Organise ActiveRecord model into a tree structure
 gem 'ancestry', '~> 2.1'
+# This library provides integration of the money gem with Rails.
+gem 'money-rails', '~>1.12'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
