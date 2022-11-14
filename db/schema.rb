@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_134308) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_14_135015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_134308) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "expense_companies", force: :cascade do |t|
+    t.bigint "expense_id", null: false
+    t.bigint "company_id", null: false
+    t.string "ide_document"
+    t.string "description"
+    t.string "exact_description"
+    t.integer "value_cents"
+    t.date "issued_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_expense_companies_on_company_id"
+    t.index ["expense_id"], name: "index_expense_companies_on_expense_id"
   end
 
   create_table "expenses", force: :cascade do |t|
@@ -70,6 +84,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_134308) do
     t.index ["node_group_id"], name: "index_portfolios_on_node_group_id"
   end
 
+  add_foreign_key "expense_companies", "companies"
+  add_foreign_key "expense_companies", "expenses"
   add_foreign_key "expenses", "expense_categories"
   add_foreign_key "expenses", "portfolios"
   add_foreign_key "portfolios", "members"
