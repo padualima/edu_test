@@ -7,5 +7,6 @@ FactoryBot.define do
     legislature { Faker::Number.number(digits: 4).to_s }
     legislature_code { Faker::Number.number(digits: 2).to_s }
     political_party { Faker::Name.initials(number: 2) }
+    expenses_amount_cents { Random.rand(999999) }
   end
 end
