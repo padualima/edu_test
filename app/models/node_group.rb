@@ -4,7 +4,7 @@ class NodeGroup < ApplicationRecord
 
   # relations
   has_ancestry
-  has_many :portfolios, -> { where(kind: 'state') }
+  has_many :portfolios
 
   # validations
   validates :slug, presence: true
