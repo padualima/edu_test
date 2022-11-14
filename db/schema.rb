@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_063710) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_14_134308) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,11 +21,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_063710) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "expense_categories", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "expenses", force: :cascade do |t|
     t.bigint "portfolio_id", null: false
     t.integer "amount_cents", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "expense_category_id", null: false
+    t.index ["expense_category_id"], name: "index_expenses_on_expense_category_id"
     t.index ["portfolio_id"], name: "index_expenses_on_portfolio_id"
   end
 
@@ -62,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_063710) do
     t.index ["node_group_id"], name: "index_portfolios_on_node_group_id"
   end
 
+  add_foreign_key "expenses", "expense_categories"
   add_foreign_key "expenses", "portfolios"
   add_foreign_key "portfolios", "members"
   add_foreign_key "portfolios", "node_groups"
