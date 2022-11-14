@@ -19,9 +19,8 @@ class PortfoliosController < ApplicationController
     data = upload_data_params[:data]
 
     respond_to do |format|
-      # TODO change this validation to include permit content_type in model
-      if data.present? && data.content_type == "text/csv"
-        if Actions::DataSynchronizer.call(filter, data)
+      if data.present? && Actions::DataSynchronizer.extensions_permited.include?(data.content_type)
+        if Actions::DataSynchronizer.call({filter: filter, data: data})
           # TODO: render to group with portfolio
           format.html { redirect_to portfolios_path }
         end
@@ -38,7 +37,7 @@ class PortfoliosController < ApplicationController
   private
 
   def upload_data_params
-    params.require(:upload_data).permit(:filter, :data)
+    params.require(:upload_data).permit(:data, filter: [])
   end
 
   def select_by_allowed_states

@@ -5,8 +5,8 @@
 
   <div class="m-3">
     <%= form.label :filter %>
-    <%= form.select :filter, options_for_select(@states), prompt: "Selecione um Estado" %>
     <p>* caso não selecione um estado, iremos importar todos os estados do arquivo</p>
+    <%= form.select :filter, options_for_select(@states),{}, { class: "form-select", multiple: true, size: 6 } %>
   </div>
 
   <div class="m-3">
