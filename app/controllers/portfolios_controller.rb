@@ -15,7 +15,7 @@ class PortfoliosController < ApplicationController
 
   # POST /portfolios/synchronize
   def synchronize
-    filter = upload_data_params[:filter]
+    filter = upload_data_params[:filter].delete_if { |f| f.empty? }
     data = upload_data_params[:data]
 
     respond_to do |format|
