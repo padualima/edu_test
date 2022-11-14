@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  db:
+    image: "postgres:14.0"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    command: bash scripts/start.sh
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/myapp
+      - gems:/gems
+    depends_on:
+      - db
+    env_file:
+      - .env.docker
+
+volumes:
+  postgres:
+  gems:

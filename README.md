@@ -12,6 +12,47 @@ Here the [Documentation](https://docs.google.com/document/d/12Rltk_ESFDbCa1BctZe
 
 ## Get Started!
 
+### Docker (recommended)
+Make sure you have Docker and Docker-Compose installed on your machine!
+
+But, if you haven't installed it yet, I recommend the links below for installation using Ubuntu 20.04:
+
+  * Install Docker: [Click here!](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-pt)
+
+  * Install Docker-compose: [Click here!](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-pt)
+
+Inside the project directory:
+
+Run the command below to copy the `.env.docker`:
+
+```
+cp .env.docker.sample .env.docker
+```
+
+
+Run to build the docker image:
+```
+docker-compose up --build
+```
+
+In other terminal, create and run the database migrations with the command:
+```
+docker-compose run --rm app bundle exec rails db:create db:migrate
+```
+
+Now, whenever you want to go up the App, run the docker container:
+```
+docker-compose up
+```
+
+**If you want to run the tests**::
+```
+docker-compose run --rm app bundle exec rspec spec
+```
+
+### Ruby on Rails
+Given that you have the Ruby(3.0.4), Rails(7.0.4) and DB PostgreSQL versions installed:
+
 Inside the project directory:
 
 Run the command below to copy the `.env`, and yo will have to change PostgreSQL credentials with based on your local credentials!
@@ -19,9 +60,6 @@ Run the command below to copy the `.env`, and yo will have to change PostgreSQL 
 ```
 cp .env.sample .env
 ```
-
-### Ruby on Rails
-Given that you have the Ruby(3.0.4), Rails(7.0.4) and DB PostgreSQL versions installed:
 
 Install the gems
 ```
@@ -45,7 +83,7 @@ bundle exec rspec spec
 ```
 
 ## Who to use
-After go up Application, now with the domain localhost http://localhost:3000 you will have access to the root_path application.
+After go up Application, now with the domain localhost http://localhost:3000 you will have access to the **root_path** application.
 
 ## License
 
