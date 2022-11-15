@@ -4,8 +4,13 @@
     <div class="card shadow-sm mb-5 bg-body rounder border-0">
       <div class="card-body">
         <div class="row pt-3">
+          <h5 class="text-center">Listagem de Despesas Públicas do Deputado</h5>
+        </div>
+        <div class="row pt-3">
           <div class="col-12 d-flex align-items-start justify-content-center">
-            <%= image_tag("http://www.camara.leg.br/internet/deputado/bandep/#{@portfolio.member.ide}.jpg", size: "140x170") %>
+            <%= image_tag(
+              "http://www.camara.leg.br/internet/deputado/bandep/#{@portfolio.member.ide}.jpg",
+              size: "140x170") %>
             <ul>
               <dd>Nome: <%= @portfolio.member.name %></dd>
               <dd>CPF: <%= @portfolio.member.cpf %></dd>
@@ -14,25 +19,30 @@
               <dd>UF: <%= @portfolio.uf %></dd>
               <dd>Legislatura: <%= @portfolio.legislature %></dd>
             </ul>
-            <%= link_to '< Voltar', root_path(params: { filter: { year_id: @portfolio.node_group.parent.id, state_id: @portfolio.node_group.id } }) %>
+            <%= link_to(
+              '< Voltar pro Rank',
+              root_path(
+                params: {
+                  filter: {
+                    year_id: @portfolio.node_group.parent.id,
+                    state_id: @portfolio.node_group.id
+                  }
+                }
+              ),
+              class: "btn btn-outline-secondary btn-sm"
+            )%>
           </div>
         </div>
 
-        <br>
-
-        <ul>
-          <li class="text-muted">Listagem por Categoria das Cota de maior despesa.</li>
-        </ul>
-
         <ul styele="list-style-type: circle;">
           <% @portfolio.expenses.order(amount_cents: :desc).each_with_index do |expense, i| %>
-            <dt><b><%= "#{i.next}. #{expense.expense_category.description}" %> (<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
+            <dt><b><%= "#{i.next}. #{expense.expense_category.description}" %>
+              (<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
             <dd>
               <table class="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Description</th>
                     <th scope="col">Data de Emissão</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Empresa Fornecedora</th>
@@ -43,11 +53,16 @@
                   <% expense.expense_companies.order(value_cents: :desc).each_with_index do |ec, i| %>
                     <tr>
                       <th scope="row"><%= "#{i.next}º" %></th>
-                      <td><%= ec.description %></td>
-                      <td><%= ec.issued_at %></td>
+                      <td><%= ec.issued_at&.strftime("%d/%m/%Y") %></td>
                       <td><%= ec.value.format %></td>
                       <td><%= ec.company.name %></td>
-                      <td><%= link_to "Link da Nota", "https://www.camara.leg.br/cota-parlamentar/nota-fiscal-eletronica?ideDocumentoFiscal=#{ec.ide_document}" %></td>
+                      <td>
+                        <%= link_to(
+                          "Link da Nota",
+                          "https://www.camara.leg.br/cota-parlamentar/nota-fiscal-eletronica?ideDocumentoFiscal=#{ec.ide_document}",
+                          class: "btn btn-outline-dark btn-sm"
+                        )%>
+                        </td>
                     </tr>
                   <% end %>
                 </tbody>

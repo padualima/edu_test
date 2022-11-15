@@ -23,6 +23,7 @@ export default class extends Controller {
       option.innerHTML = "Entire place";
       this.targets.find("states").appendChild(option);
     } else {
+      data.unshift(["",""])
       data.forEach((room) => {
         const option = document.createElement("option");
         option.value = room[1];
