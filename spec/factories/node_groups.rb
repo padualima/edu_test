@@ -4,7 +4,7 @@ FactoryBot.define do
     ancestry { nil }
     kind { NodeGroup.kinds['year'] }
 
-    trait :with_state_child do
+    trait :with_state_type_child_group do
       after(:create) do |group|
         child =
           build(:node_group, slug: NodeGroup.states_allowed.sample, kind: NodeGroup.kinds['state'] )

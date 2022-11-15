@@ -11,7 +11,7 @@ RSpec.describe NodeGroup, type: :model do
     end
 
     context "when NodeGroup has a valid child" do
-      let(:node_group) { create(:node_group, :with_state_child) }
+      let(:node_group) { create(:node_group, :with_state_type_child_group) }
 
       it 'should be valid' do
         expect { node_group }.to change(NodeGroup, :count).by(2)
@@ -19,7 +19,7 @@ RSpec.describe NodeGroup, type: :model do
     end
 
     context "when NodeGroup is of kind state and has a child" do
-      let(:node_group) { create(:node_group, :with_state_child) }
+      let(:node_group) { create(:node_group, :with_state_type_child_group) }
 
       let(:node_group_child) do
         build(:node_group) do |g|
@@ -33,6 +33,16 @@ RSpec.describe NodeGroup, type: :model do
       end
     end
 
+    context "when NodeGroup is of kind state and has not parent" do
+      let(:node_group) do
+        build(:node_group, slug: NodeGroup.states_allowed.sample, kind: NodeGroup.kinds.keys[1])
+      end
+
+      it 'should be not_valid' do
+        expect(node_group).to_not be_valid
+      end
+    end
+
     context "#slug" do
       context "when not present" do
         let(:node_group) { build(:node_group, slug: "") }
@@ -42,7 +52,7 @@ RSpec.describe NodeGroup, type: :model do
         end
       end
 
-      context "when slug is year invalid" do
+      context "when node_group is of type year and has invalid slug" do
         let(:node_group) { build(:node_group, slug: (Date.current + 1.year).year.to_s) }
 
         it "should not be valid next year" do
@@ -56,10 +66,10 @@ RSpec.describe NodeGroup, type: :model do
       end
 
       context "when slug is a disallowed abbreviation state" do
-        let(:node_group) { build(:node_group, slug: "SPP", kind: NodeGroup.kinds.keys[1]) }
+        let(:node_group) { create(:node_group, :with_state_type_child_group) }
 
         it "should not be valid" do
-          expect(node_group).to_not be_valid
+          expect(NodeGroup.find_by(ancestry: node_group).update(slug: "SSP")).to_not be_truthy
         end
       end
 

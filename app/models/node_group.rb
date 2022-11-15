@@ -8,6 +8,7 @@ class NodeGroup < ApplicationRecord
 
   # validations
   validates :slug, presence: true
+  validates :ancestry, presence: true, if: -> { kind == NodeGroup.kinds.keys[1] }
   validate :check_if_valid_year_slug
   validate :check_if_valid_state_slug
   validate :check_if_have_identical_siblings
