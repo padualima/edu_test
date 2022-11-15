@@ -1,5 +1,5 @@
 class PortfoliosController < ApplicationController
-  before_action :upload_data_params, only: %i[synchronize]
+  before_action :set_portfolio, only: %i[show]
 
   # GET /portfolios
   def index
@@ -21,6 +21,11 @@ class PortfoliosController < ApplicationController
     end
 
     @portfolios = Portfolio.where(node_group: @result_state_group).order(expenses_amount_cents: :desc)
+  end
+
+  # GET /portfolios/:id
+  def show
+
   end
 
   # GET /portfolios/upload_data
@@ -64,6 +69,9 @@ class PortfoliosController < ApplicationController
     @states = NodeGroup.states_allowed
   end
 
+  def set_portfolio
+    @portfolio = Portfolio.find(params[:id])
+  end
 
   def prepare_form
     @year_groups = NodeGroup.where(kind: NodeGroup.kinds['year']).order(:slug).pluck(:slug, :id)

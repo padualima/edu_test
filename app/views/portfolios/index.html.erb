@@ -21,17 +21,19 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Deputado(a)</th>
-                <th scope="col">Total de Despesas</th>
+                <td scope="col">Deputado(a)</td>
+                <td scope="col">Total de Despesas</td>
+                <td scope="col">Ações</td>
               </tr>
             </thead>
             <tbody>
               <% @portfolios.each_with_index do |portfolio, i| %>
-                <tr>
-                  <th scope="row"><%= "#{i.next}º" %></th>
-                  <td><%= portfolio.member.name %></td>
-                  <td><%= portfolio.expenses_amount.format %></td></td>
-                </tr>
+                  <tr>
+                    <th scope="row"><%= "#{i.next}º" %></th>
+                    <td><%= portfolio.member.name %></td>
+                    <td><%= portfolio.expenses_amount.format %></td>
+                    <td><%= link_to 'Show', portfolio_path(portfolio) %></td>
+                  </tr>
               <% end %>
             </tbody>
           </table>
