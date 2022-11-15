@@ -1,20 +1,29 @@
+<div class="text-center p-3">
+  <h4> Faça o upload do seu arquivo!</h4>
+</div>
+
 <%= form_with(scope: :upload_data, url: synchronize_portfolios_path) do |form| %>
   <% if alert %>
     <p class="alert alert-danger"><%= alert %></p>
   <% end %>
 
-  <div class="m-3">
-    <%= form.label :filter %>
-    <p>* caso não selecione um estado, iremos importar todos os estados do arquivo</p>
-    <%= form.select :filter, options_for_select(@states),{}, { class: "form-select", multiple: true, size: 6 } %>
+  <div class="row d-flex justify-content-center">
+    <div class="pt-3">
+      <%= form.label :filter, "Filtrar por Estados:", class: "form-label" %>
+      <%= form.select :filter, options_for_select(@states),{}, { class: "form-select", multiple: true, size: 4 } %>
+      <div id="stateHelp" class="form-text">Use `crtl + click` para selecionar.</div>
+      <div id="stateHelp" class="form-text">Caso não forneça um filtro para Estado, será importado todos os estados do arquivo!</div>
+    </div>
+
+    <div class="pt-3">
+      <%= form.label :data, "Selecione o arquivo:", class: "form-label", for: "formFile" %>
+      <br>
+      <%= form.file_field :data, id: "formFile", required: true %>
+    </div>
   </div>
 
-  <div class="m-3">
-    <%= form.label :data %>
-    <%= form.file_field :data, required: true %>
+  <div class="m-3 text-center">
+    <%= form.submit "Importar", class: "btn btn-outline-primary" %>
   </div>
 
-  <div class="m-3">
-    <%= form.submit "Importar" %>
-  </div>
 <% end %>
