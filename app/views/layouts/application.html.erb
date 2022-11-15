@@ -12,25 +12,6 @@
 
   <body>
     <div class="container">
-      <form class="form-inline d-flex align-items-center justify-content-center">
-        <div class="form-floating col-3 col-md-2 mx-2">
-          <select class="form-select" id="floatingSelect" aria-label="Select year" >
-            <option selected>2022</option>
-            <option value="1">2021</option>
-          </select>
-          <label for="floatingSelect">Ano Eleição</label>
-        </div>
-        <div class="form-floating col-3 col-md-2 mx-2">
-          <select class="form-select" id="floatingSelect" aria-label="Select state">
-            <option selected>PI</option>
-            <option value="1">SP</option>
-          </select>
-          <label for="floatingSelect">Estado</label>
-        </div>
-        <div class="m-3 d-flex">
-          <button type="submit" class="btn btn-outline-primary my-1">Filtrar</button>
-        </div>
-      </form>
       <%= yield %>
     </div>
   </body>

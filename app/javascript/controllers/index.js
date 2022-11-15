@@ -4,5 +4,5 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import FormFilterController from "./form_filter_controller"
+application.register("form-filter", FormFilterController)
