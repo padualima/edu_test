@@ -26,12 +26,12 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <td scope="col">Deputado(a)</td>
-                <td scope="col">Total de Despesas</td>
-                <td scope="col">Ações</td>
+                <th scope="col">Deputado(a)</th>
+                <th scope="col">Total de Despesas</th>
+                <th scope="col">Ações</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="table-group-divider">
               <% @portfolios.each_with_index do |portfolio, i| %>
                   <tr>
                     <th scope="row"><%= "#{i.next}º" %></th>
