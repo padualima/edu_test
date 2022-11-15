@@ -6,6 +6,12 @@ Rails.application.routes.draw do
       post 'synchronize'
     end
   end
+
+  resources :groups, defaults: { format: :json }, only: [] do
+    member do
+      get 'states'
+    end
+  end
   # Defines the root path route ("/")
   root "portfolios#index"
 end
