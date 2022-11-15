@@ -2,8 +2,7 @@
   <%= render partial: "form_filter" %>
   <div class="row mb-3">
     <div class="col-12">
-      <div class="d-flex align-items-center justify-content-between">
-        <h5 class="fs-5">Ranking de Gastos Parlamentares</h5>
+      <div class="d-flex justify-content-end">
         <%= link_to 'Nova Importação', upload_data_portfolios_path, class: "btn btn-outline-success" %>
       </div>
     </div>
@@ -13,9 +12,15 @@
     <div class="col-12">
       <div class="card shadow-sm mb-5 bg-body rounder border-0">
         <div class="card-body">
-          <p>Resultado da pesquisa: <%= @result_year_group.slug %> > <%= @result_state_group.slug %></p>
-
-          <br>
+        <h5 class="fs-5">Ranking de Gastos Parlamentares</h5>
+          <hr>
+          <% if @result_year_group && @result_state_group %>
+            <dt class="text-muted">Resultado da pesquisa: </dt>
+            <ul>
+              <li class="text-muted">Ano: <%= @result_year_group.slug %></li>
+              <li class="text-muted">Estado: <%= @result_state_group.slug %></li>
+            </ul>
+          <% end %>
 
           <table class="table table-hover">
             <thead>

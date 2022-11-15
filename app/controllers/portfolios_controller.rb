@@ -5,22 +5,23 @@ class PortfoliosController < ApplicationController
   def index
     # TODO: refactor index, change to scopes model
     prepare_form
-    if filter_params.present?
+    @portfolios = if filter_params.present?
       filter_year, filter_state = filter_params.values
 
       @result_year_group = NodeGroup.find_by(id: filter_year, kind: NodeGroup.kinds['year'])
       @result_state_group = NodeGroup
         .where(ancestry: @result_year_group, kind: NodeGroup.kinds['state'])
         .find_by(id: filter_state)
+      Portfolio.where(node_group: @result_state_group).order(expenses_amount_cents: :desc)
     else
       maximum_slug = NodeGroup.where(kind: NodeGroup.kinds['year']).maximum(:slug)
-      @result_year_group = NodeGroup
+      result_year_group = NodeGroup
         .where(kind: NodeGroup.kinds['year'])
         .find_by(slug: maximum_slug)
-      @result_state_group = @result_year_group&.children&.order(:slug)&.min
-    end
+      result_state_group = result_year_group&.children&.order(:slug)&.min
 
-    @portfolios = Portfolio.where(node_group: @result_state_group).order(expenses_amount_cents: :desc)
+      Portfolio.where(node_group: result_state_group).order(expenses_amount_cents: :desc)
+    end
   end
 
   # GET /portfolios/:id

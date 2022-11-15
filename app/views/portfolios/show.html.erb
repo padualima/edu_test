@@ -1,1 +1,63 @@
-<h3>Portfolio Show</h3>
+<%# # TODO: REFACTOR THIS PAGE %>
+<div class="row pt-5 d-flex justify-content-center">
+  <div class="col-6">
+    <div class="row align-items-center justify-content-around">
+      <div class="col-3">
+        <%= image_tag("http://www.camara.leg.br/internet/deputado/bandep/#{@portfolio.member.ide}.jpg", size: "130x150") %>
+      </div>
+      <div class="col-6 align-items-start">
+        <p>Nome: <%= @portfolio.member.name %></p>
+        <p>CPF: <%= @portfolio.member.cpf %></p>
+        <p>Número de Cadastro Federal(ide): <%= @portfolio.member.ide %></p>
+        <p>Partido Politico: <%= @portfolio.political_party %></p>
+        <p>UF: <%= @portfolio.uf %></p>
+        <p>Legislatura: <%= @portfolio.legislature %></p>
+        <%= link_to '< Voltar', root_path(params: { filter: { year_id: @portfolio.node_group.parent.id, state_id: @portfolio.node_group.id } }) %>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow-sm mb-5 bg-body rounder border-0">
+      <div class="card-body">
+        <ul>
+          <li class="text-muted">Listagem por Categoria das Cota de maior despesa.</li>
+        </ul>
+        <ul styele="list-style-type: circle;">
+          <% @portfolio.expenses.order(amount_cents: :desc).each_with_index do |expense, i| %>
+            <dt><b><%= "#{i.next}.#{expense.expense_category.description}" %> (<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
+            <dd>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Description</th>
+                    <td scope="col">Data de Emissão</td>
+                    <td scope="col">Valor</td>
+                    <td scope="col">Empresa Fornecedora</td>
+                    <td scope="col">Ações</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% expense.expense_companies.order(value_cents: :desc).each_with_index do |ec, i| %>
+                    <tr>
+                      <th scope="row"><%= "#{i.next}º" %></th>
+                      <td><%= ec.description %></td>
+                      <td><%= ec.issued_at %></td>
+                      <td><%= ec.value.format %></td>
+                      <td><%= ec.company.name %></td>
+                      <td><%= link_to "Link da Nota", "https://www.camara.leg.br/cota-parlamentar/nota-fiscal-eletronica?ideDocumentoFiscal=#{ec.ide_document}" %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </dd>
+            <br>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
