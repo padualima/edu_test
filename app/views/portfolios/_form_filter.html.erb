@@ -32,7 +32,7 @@
       </div>
 
       <div class="m-3 d-flex">
-        <%= form.submit "Filtrar", class: "btn btn-outline-secondary my-1 btn-sm", id: "btFilter" %>
+        <%= form.submit "Filtrar", class: "btn btn-outline-secondary my-1 btn-sm", turbo_frame: :filter_field  %>
       </div>
     </div>
   <% end %>
