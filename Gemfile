@@ -49,6 +49,8 @@ gem "bootsnap", require: false
 gem 'ancestry', '~> 2.1'
 # This library provides integration of the money gem with Rails.
 gem 'money-rails', '~>1.12'
+# Validate, generate and format CPF/CNPJ numbers. Include command-line tools.
+gem "cpf_cnpj"
 
 # Use Sass to process CSS
 # gem "sassc-rails"
