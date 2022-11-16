@@ -14,13 +14,25 @@ class NodeGroup < ApplicationRecord
   validate :check_if_have_identical_siblings
   validate :check_if_invalid_ancestry
 
-  # methods
+  # scopes
+  scope :by_states, -> { where(kind: NodeGroup.kinds['state']) }
+  scope :by_years, -> { where(kind: NodeGroup.kinds['year']) }
+  scope :states_by_year, -> (y_group_id) { by_states.where(ancestry: y_group_id) }
+
+  # class methods
+
+  def self.oldest_year
+    by_years.order(slug: :desc)[0]
+  end
+
   def self.states_allowed
     [	"AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
-      "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" ]
+      "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" ].sort.freeze
   end
 
   def self.start_year_allowed; 2008 end
+
+  # objects methods
 
   def check_if_valid_state_slug
     return if kind == NodeGroup.kinds.keys[0]

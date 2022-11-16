@@ -1,33 +1,15 @@
 class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: %i[show]
+  before_action :prepare_filter, only: %i[index]
+  before_action :select_states_form_filter, only: %i[index]
 
   # GET /portfolios
   def index
-    # TODO: refactor index, change to scopes model
-    prepare_form
-    if filter_params.present?
-      filter_year, filter_state = filter_params.values
-
-      @result_year_group = NodeGroup.find_by(id: filter_year, kind: NodeGroup.kinds['year'])
-      @result_state_group = NodeGroup
-        .where(ancestry: @result_year_group, kind: NodeGroup.kinds['state'])
-        .find_by(id: filter_state)
-    else
-      maximum_slug = NodeGroup.where(kind: NodeGroup.kinds['year']).maximum(:slug)
-      @result_year_group = NodeGroup
-        .where(kind: NodeGroup.kinds['year'])
-        .find_by(slug: maximum_slug)
-      @result_state_group = @result_year_group&.children&.order(:slug)&.min
-    end
-
-    @portfolios =
-      Portfolio.where(node_group: @result_state_group).order(expenses_amount_cents: :desc)
+    @portfolios = Portfolio.find_by_group(@y_group, @s_group)
   end
 
   # GET /portfolios/:id
-  def show
-
-  end
+  def show; end
 
   # GET /portfolios/upload_data
   def upload_data
@@ -58,6 +40,10 @@ class PortfoliosController < ApplicationController
 
   private
 
+  def set_portfolio
+    @portfolio = Portfolio.find(params[:id])
+  end
+
   def upload_data_params
     params.require(:upload_data).permit(:data, filter: [])
   end
@@ -66,15 +52,20 @@ class PortfoliosController < ApplicationController
     params.require(:filter).permit(:year_id, :state_id) if params['filter']
   end
 
+  def get_state_by_oldest_year
+    state_group = NodeGroup.states_by_year(NodeGroup.oldest_year&.id).order(:slug).first
+    [state_group&.parent&.id, state_group&.id]
+  end
+
+  def prepare_filter
+    @y_group, @s_group = filter_params.present? ? filter_params.values : get_state_by_oldest_year
+  end
+
   def select_by_allowed_states
-    @states = NodeGroup.states_allowed
+    @select_by_allowed_states = NodeGroup.states_allowed
   end
 
-  def set_portfolio
-    @portfolio = Portfolio.find(params[:id])
-  end
-
-  def prepare_form
-    @year_groups = NodeGroup.where(kind: NodeGroup.kinds['year']).order(:slug).pluck(:slug, :id)
+  def select_states_form_filter
+    @select_states_form_filter = NodeGroup.by_years.order(:slug).pluck(:slug, :id)
   end
 end

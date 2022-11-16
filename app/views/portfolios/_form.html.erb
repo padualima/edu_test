@@ -10,7 +10,14 @@
   <div class="row d-flex justify-content-center">
     <div class="pt-3">
       <%= form.label :filter, "Filtrar por Estados:", class: "form-label" %>
-      <%= form.select :filter, options_for_select(@states),{}, { class: "form-select", multiple: true, size: 4 } %>
+      <%=
+        form.select(
+          :filter,
+          options_for_select(@select_by_allowed_states),
+          {},
+          { class: "form-select", multiple: true, size: 4 }
+        )
+      %>
       <div id="stateHelp" class="form-text">Use `crtl + click` para selecionar.</div>
       <div id="stateHelp" class="form-text">Caso não forneça um filtro para Estado, será importado todos os estados do arquivo!</div>
     </div>

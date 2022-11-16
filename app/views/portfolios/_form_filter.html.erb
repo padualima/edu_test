@@ -4,7 +4,7 @@
       <div class="form-floating col-3 col-md-2 mx-2">
         <%= form.select(
           :year_id,
-          options_for_select(@year_groups),
+          options_for_select(@select_states_form_filter),
           { include_blank: true },
           {
             class: "form-select form-select-sm",

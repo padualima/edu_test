@@ -9,4 +9,16 @@ class Portfolio < ApplicationRecord
 
   validates :uf, :parliamentary_number, :legislature, :legislature_code, :political_party,
             uniqueness: { scope: [:node_group_id, :member_id] }
+
+  scope :find_by_group, -> (year_group_id, state_group_id) do
+    joins(:node_group)
+      .where(
+        node_groups: {
+          id: state_group_id,
+          ancestry: year_group_id,
+          kind: NodeGroup.kinds['state']
+        }
+      )
+      .order(expenses_amount_cents: :desc)
+  end
 end
