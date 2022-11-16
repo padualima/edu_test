@@ -34,9 +34,15 @@
         </div>
 
         <ul styele="list-style-type: circle;">
+          <% greater_expense = @portfolio.expense_companies.order(value_cents: :desc).first %>
+          <dt> Valor de maior despesa foi: <%= greater_expense.value.format %> </dt>
+          <dt> Referente à: <%= greater_expense.description %></dt>
+
+          <br>
+
           <% @portfolio.expenses.order(amount_cents: :desc).each_with_index do |expense, i| %>
-            <dt><b><%= "#{i.next}. #{expense.expense_category.description}" %>
-              (<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
+            <dt><%= "#{i.next}. #{expense.expense_category.description}" %>
+              <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
             <dd>
               <table class="table table-hover">
                 <thead>

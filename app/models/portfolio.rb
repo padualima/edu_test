@@ -3,6 +3,7 @@ class Portfolio < ApplicationRecord
   belongs_to :member
   has_many :expenses
   has_many :expense_categories, through: :expenses
+  has_many :expense_companies, through: :expenses
 
   monetize :expenses_amount_cents, allow_nil: true, numericality: true
 

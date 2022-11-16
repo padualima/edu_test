@@ -18,18 +18,12 @@ export default class extends Controller {
   updateDropdown(data) {
     this.targets.find("states").innerHTML = "";
 
-    if (data == 0) {
+    data.unshift(["",""])
+    data.forEach((room) => {
       const option = document.createElement("option");
-      option.innerHTML = "Entire place";
+      option.value = room[1];
+      option.innerHTML = room[0];
       this.targets.find("states").appendChild(option);
-    } else {
-      data.unshift(["",""])
-      data.forEach((room) => {
-        const option = document.createElement("option");
-        option.value = room[1];
-        option.innerHTML = room[0];
-        this.targets.find("states").appendChild(option);
-      });
-    }
+    });
   }
 }
