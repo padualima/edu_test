@@ -43,6 +43,18 @@ RSpec.describe NodeGroup, type: :model do
       end
     end
 
+    context '.oldest_year' do
+      before do
+        (1..3).each do |n|
+          create(:node_group, slug: (Date.current - n.year).year)
+        end
+      end
+
+      it 'should be return oldest year' do
+        expect(NodeGroup.oldest_year).to eql NodeGroup.find_by(slug: (Date.current - 3.year).year)
+      end
+    end
+
     context "#slug" do
       context "when not present" do
         let(:node_group) { build(:node_group, slug: "") }

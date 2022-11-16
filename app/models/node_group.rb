@@ -22,7 +22,7 @@ class NodeGroup < ApplicationRecord
   # class methods
 
   def self.oldest_year
-    by_years.order(slug: :desc)[0]
+    by_years.order(:slug).first
   end
 
   def self.states_allowed
