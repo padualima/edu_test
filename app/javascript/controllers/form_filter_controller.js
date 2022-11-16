@@ -2,9 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="form-filter"
 export default class extends Controller {
-  connect() {
-    console.log("Hello, Stimulus!", this.element)
-  }
+  connect() { }
 
   remoteselect(e) {
     const id = e.target.value

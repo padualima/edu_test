@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/:id/states
   def states
-    groups = @node_group.children.pluck(:slug, :id)
+    groups = @node_group.children.order(:slug).pluck(:slug, :id)
 
     render json: groups
   end

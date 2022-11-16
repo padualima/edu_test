@@ -1,14 +1,29 @@
+<% if @root_toggle %>
+  <div class="row d-flex align-items-start justify-content-end">
+    <div class="col-auto">
+      <%= link_to '< Lista de Deputados', root_path, class: "btn btn-sm btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>
+
 <div class="text-center p-3">
   <h4> Faça o upload do seu arquivo!</h4>
 </div>
 
 <%= form_with(scope: :upload_data, url: synchronize_portfolios_path) do |form| %>
+
   <% if alert %>
-    <p class="alert alert-danger"><%= alert %></p>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= alert %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <% end %>
 
   <div class="row d-flex justify-content-center">
     <div class="pt-3">
+      <p class="form-text">
+        Clique <%= link_to 'Aqui', 'https://dadosabertos.camara.leg.br/swagger/api.html#staticfile', target: '_blank' %>
+        para ter acesso aos dados abertos da Câmara dos Deputados!</p>
       <%= form.label :filter, "Filtrar por Estados:", class: "form-label" %>
       <%=
         form.select(

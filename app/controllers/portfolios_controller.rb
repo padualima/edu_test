@@ -2,6 +2,7 @@ class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: %i[show]
   before_action :prepare_filter, only: %i[index]
   before_action :select_states_form_filter, only: %i[index]
+  before_action :prepare_form, only: %i[upload_data]
 
   # GET /portfolios
   def index
@@ -14,8 +15,6 @@ class PortfoliosController < ApplicationController
   # GET /portfolios/upload_data
   def upload_data
     @portfolio = Portfolio.new
-
-    select_by_allowed_states
   end
 
   # POST /portfolios/synchronize
@@ -29,10 +28,9 @@ class PortfoliosController < ApplicationController
           format.html { redirect_to portfolios_path }
         end
       else
-        select_by_allowed_states
         format.html {
           redirect_to upload_data_portfolios_path,
-          alert: "Unknown file type UploadData."
+          alert: "O arquivo enviado, não é de um tipo de arquivo aceito!"
         }
       end
     end
@@ -59,6 +57,11 @@ class PortfoliosController < ApplicationController
 
   def prepare_filter
     @y_group, @s_group = filter_params.present? ? filter_params.values : get_state_by_oldest_year
+  end
+
+  def prepare_form
+    select_by_allowed_states
+    @root_toggle = true if Portfolio.count.positive?
   end
 
   def select_by_allowed_states

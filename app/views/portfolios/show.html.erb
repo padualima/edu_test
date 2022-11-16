@@ -35,7 +35,7 @@
 
         <ul styele="list-style-type: circle;">
           <% greater_expense = @portfolio.expense_companies.order(value_cents: :desc).first %>
-          <dt> Valor de maior despesa foi: <%= greater_expense.value.format %> </dt>
+          <dt> Despesa de maior valor: <%= greater_expense.value.format %> </dt>
           <dt> Referente à: <%= greater_expense.description %></dt>
 
           <br>
