@@ -5,4 +5,7 @@ class Portfolio < ApplicationRecord
   has_many :expense_categories, through: :expenses
 
   monetize :expenses_amount_cents, allow_nil: true, numericality: true
+
+  validates :uf, :parliamentary_number, :legislature, :legislature_code, :political_party,
+            uniqueness: { scope: [:node_group_id, :member_id] }
 end
