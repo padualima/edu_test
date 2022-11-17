@@ -29,13 +29,13 @@ module Actions
             NodeGroup.find_or_create_by!(slug: row[:numano], kind: NodeGroup.kinds['year'])
 
           group_child = NodeGroup.find_or_create_by!(
-            slug: row[:sguf],
+            slug: row[:sguf].upcase,
             kind: NodeGroup.kinds['state'],
             ancestry: group.id
           )
 
           member = Member.find_or_create_by!(
-            name: row[:txnomeparlamentar],
+            name: row[:txnomeparlamentar].upcase,
             cpf: row[:cpf],
             ide: row[:idecadastro]
           )
@@ -51,12 +51,12 @@ module Actions
           )
 
           company = Company.find_or_create_by!(
-            name: row[:txtfornecedor],
+            name: row[:txtfornecedor].upcase,
             document: format_document(row[:txtcnpjcpf])
           )
 
           category = ExpenseCategory.find_or_create_by!(
-            description: row[:txtdescricao]
+            description: row[:txtdescricao].upcase
           )
 
           expense = Expense.find_or_create_by!(
@@ -68,7 +68,7 @@ module Actions
             expense_id: expense.id,
             company_id: company.id,
             ide_document: row[:idedocumento],
-            description: row[:txtdescricao],
+            description: row[:txtdescricao].upcase,
             exact_description: row[:txtdescricaoespecificacao],
             value_cents: row[:vlrliquido]&.to_money.cents,
             issued_at: row[:datemissao]

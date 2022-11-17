@@ -3,4 +3,24 @@
 
 body {
   background-color: #f4f4f4;
+  font-family: sans-serif;
+}
+
+.form-floating {
+  width: 22%;
+  flex: 0 0 auto;
+}
+
+@media only screen and (max-width: 960px) {
+  .form-floating {
+    width: 28%;
+    flex: 0 0 auto;
+  }
+}
+
+@media only screen and (max-width: 730px) {
+  .form-floating {
+    width: 35%;
+    flex: 0 0 auto;
+  }
 }

@@ -21,4 +21,12 @@ class Portfolio < ApplicationRecord
       )
       .order(expenses_amount_cents: :desc)
   end
+
+  def greater_expense_companies
+    expense_companies.order(value_cents: :desc).first
+  end
+
+  def expenses_order_by_greater
+    expenses.order(amount_cents: :desc).group(:id)
+  end
 end

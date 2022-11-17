@@ -1,82 +1,72 @@
-<div class="row  pt-5">
-  <div class="col-12">
-    <div class="card shadow-sm mb-5 bg-body rounder border-0">
-      <div class="card-body">
-        <div class="row pt-3">
-          <h5 class="text-center">Listagem de Despesas Públicas do Deputado</h5>
-        </div>
-        <div class="row pt-3">
-          <div class="col-12 d-flex align-items-start justify-content-center">
-            <%= image_tag(
-              "http://www.camara.leg.br/internet/deputado/bandep/#{@portfolio.member.ide}.jpg",
-              size: "140x170") %>
-            <ul>
-              <dd>Nome: <%= @portfolio.member.name %></dd>
-              <dd>CPF: <%= @portfolio.member.cpf_formatted %></dd>
-              <dd>Número de Cadastro Federal (ide): <%= @portfolio.member.ide %></dd>
-              <dd>Partido Politico: <%= @portfolio.political_party %></dd>
-              <dd>UF: <%= @portfolio.uf %></dd>
-              <dd>Legislatura: <%= @portfolio.legislature %></dd>
-            </ul>
-            <%= link_to(
-              '< Voltar pro Rank',
-              root_path(
-                params: {
-                  filter: {
-                    year_id: @portfolio.node_group.parent.id,
-                    state_id: @portfolio.node_group.id
-                  }
-                }
-              ),
-              class: "btn btn-outline-secondary btn-sm"
-            )%>
-          </div>
+<div class="m-2 d-flex justify-content-end">
+  <%= link_to('< Voltar pro Rank',
+    root_path(params: { filter: { year_id: @portfolio.node_group.parent.id, state_id: @portfolio.node_group.id } }),
+    class: "btn btn-outline-dark btn-sm border-0 rounded-3 shadow-sm"
+  )%>
+</div>
+
+<div class="card shadow-sm rounded-3 shadow-sm border-0 mb-2">
+  <div class="card-body">
+    <div class="row justify-content-center p-4">
+      <div class="col-auto border border-1 rounded-3 shadow-sm p-4">
+        <div class="d-flex align-items-center justify-content-center">
+          <%= image_tag(
+            image_portfolio_url(@portfolio.member.ide),
+            size: "140x173") %>
+          <ul>
+            <dt><p class="text-center">Portfólio do(a) Deputado(a)</p></dt>
+            <dd>Nome: <%= @portfolio.member.name %></dd>
+            <dd>CPF: <%= @portfolio.member.cpf_formatted %></dd>
+            <dd>Número de Cadastro Federal (ide): <%= @portfolio.member.ide %></dd>
+            <dd>Partido Politico: <%= @portfolio.political_party %></dd>
+            <dd>UF: <%= @portfolio.uf %></dd>
+            <dd>Legislatura: <%= @portfolio.legislature %></dd>
+          </ul>
         </div>
 
-        <ul styele="list-style-type: circle;">
-          <% greater_expense = @portfolio.expense_companies.order(value_cents: :desc).first %>
-          <dt> Despesa de maior valor: <%= greater_expense.value.format %> </dt>
-          <dt> Referente à: <%= greater_expense.description %></dt>
-
-          <br>
-
-          <% @portfolio.expenses.order(amount_cents: :desc).each_with_index do |expense, i| %>
-            <dt><%= "#{i.next}. #{expense.expense_category.description}" %>
-              <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
-            <dd>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Data de Emissão</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Empresa Fornecedora</th>
-                    <th scope="col">Ações</th>
-                  </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                  <% expense.expense_companies.order(value_cents: :desc).each_with_index do |ec, i| %>
-                    <tr>
-                      <th scope="row"><%= "#{i.next}º" %></th>
-                      <td><%= ec.issued_at&.strftime("%d/%m/%Y") %></td>
-                      <td><%= ec.value.format %></td>
-                      <td><%= ec.company.name %></td>
-                      <td>
-                        <%= link_to(
-                          "Link da Nota",
-                          "https://www.camara.leg.br/cota-parlamentar/nota-fiscal-eletronica?ideDocumentoFiscal=#{ec.ide_document}",
-                          class: "btn btn-outline-dark btn-sm"
-                        )%>
-                        </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </dd>
-            <br>
-          <% end %>
-        </ul>
+        <dt> Despesa Pública de maior valor: <%= @portfolio.greater_expense_companies.value.format %> </dt>
+        <dt> Referente à: <%= @portfolio.greater_expense_companies.description %></dt>
       </div>
     </div>
+
+    <p class="text-sencodary form-text pt-2"><em>Lista de suas Despesas Públicas ordenadas por valor mais alto.</em><p>
+    <% @portfolio.expenses_order_by_greater.each_with_index do |expense, i| %>
+      <ul styele="list-style-type: circle;" class="px-0">
+        <dt><%= "#{i.next}. #{expense.expense_category.description}" %>
+          <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
+        <dd>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Data de Emissão</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Empresa Fornecedora</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% expense.expense_companies.order(value_cents: :desc).each_with_index do |ec, i| %>
+                  <tr>
+                    <th scope="row"><%= "#{i.next}º" %></th>
+                    <td><%= ec.issue_at_formatted %></td>
+                    <td><%= ec.value.format %></td>
+                    <td><%= ec.company.name %></td>
+                    <td>
+                      <%= link_to(
+                        "Link da Nota",
+                        fiscal_document_url(ec.ide_document),
+                        class: "btn btn-outline-dark btn-sm border-0 rounded-3 shadow-sm"
+                      )%>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </dd>
+      </ul>
+    <% end %>
   </div>
 </div>
