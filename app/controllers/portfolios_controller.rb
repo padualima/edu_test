@@ -6,11 +6,13 @@ class PortfoliosController < ApplicationController
 
   # GET /portfolios
   def index
-    @portfolios = Portfolio.find_by_group(@y_group, @s_group)
+    @portfolios = Portfolio.find_by_group(@y_group, @s_group).page params[:page]
   end
 
   # GET /portfolios/:id
-  def show; end
+  def show
+    @expenses = @portfolio.expenses_order_by_greater.group(:id).page params[:page]
+  end
 
   # GET /portfolios/upload_data
   def upload_data

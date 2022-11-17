@@ -50,7 +50,9 @@ gem 'ancestry', '~> 2.1'
 # This library provides integration of the money gem with Rails.
 gem 'money-rails', '~>1.12'
 # Validate, generate and format CPF/CNPJ numbers. Include command-line tools.
-gem "cpf_cnpj"
+gem "cpf_cnpj", '~> 0.5.0'
+# Kaminari is a Scope & Engine based, clean, powerful, agnostic, customizable and sophisticated paginator for Rails 4+
+gem 'kaminari', '~> 1.2', '>= 1.2.2'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

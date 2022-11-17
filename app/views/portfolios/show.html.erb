@@ -34,9 +34,9 @@
   <em>Lista de Despesas Públicas ordenadas por valor mais alto.</em>
 </div>
 
-<% @portfolio.expenses_order_by_greater.each_with_index do |expense, i| %>
+<% @expenses.each_with_index do |expense, i| %>
   <ul styele="list-style-type: circle;" class="px-0">
-    <dt><%= "#{i.next}. #{expense.expense_category.description}" %> <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
+    <dt><%= "#{expense.position}. #{expense.expense_category.description}" %> <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
     <dd>
       <div class="table-responsive">
         <table class="table table-hover table-sm">
@@ -67,6 +67,7 @@
             <% end %>
           </tbody>
         </table>
+        <div class="d-flex justify-content-center"><%= paginate @expenses, window: 2, remote: true %></div>
       </div>
     </dd>
   </ul>
