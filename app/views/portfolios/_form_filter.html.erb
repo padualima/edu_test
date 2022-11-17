@@ -1,4 +1,4 @@
-<div data-controller="form-filter" class="mb-2">
+<div data-controller="form-filter" class="my-4">
   <%= form_with(scope: :filter, url: portfolios_path, method: :get, class: "form-inline") do |form| %>
     <div class="container">
       <div class="row">
@@ -9,7 +9,7 @@
               options_for_select(@select_states_form_filter),
               { include_blank: true },
               {
-                class: "form-select border-0 shadow-sm rounded-4 text-center",
+                class: "form-select border-0 bg-light shadow-sm rounded-4 text-center",
                 id: "years_select",
                 required: true,
                 aria: { label: "Select year" },
@@ -24,7 +24,7 @@
               options_for_select([]),
               { include_blank: true },
               {
-                class: "form-select border-0 shadow-sm rounded-4 text-center",
+                class: "form-select border-0 bg-light shadow-sm rounded-4 text-center",
                 id: "states_select",
                 required: true,
                 aria: { label: "Select state" },
@@ -32,7 +32,7 @@
               }) %>
             <label>Selecione Estado</label>
           </div>
-          <%= form.submit "Filtrar", class: "btn btn-sm btn-outline-dark border-0 mx-1 rounded-3 shadow-sm", turbo_frame: :filter_field  %>
+          <%= form.submit "Filtrar", class: "btn btn-sm bg-light btn-outline-dark border-0 mx-1 rounded-3 shadow-sm", turbo_frame: :filter_field  %>
         </div>
       </div>
     </div>

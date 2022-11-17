@@ -12,7 +12,15 @@
 
   <body>
     <div class="container-fluid">
-      <%= yield %>
+      <div class="row justify-content-center py-2">
+        <div class="col-lg-8 col-md-11">
+          <div class="card shadow-sm bg-body rounded-4 border-0">
+            <div class="card-body">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

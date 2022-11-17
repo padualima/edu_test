@@ -61,7 +61,6 @@ class PortfoliosController < ApplicationController
 
   def prepare_form
     select_by_allowed_states
-    @root_toggle = true if Portfolio.count.positive?
   end
 
   def select_by_allowed_states

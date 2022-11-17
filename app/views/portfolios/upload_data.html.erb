@@ -1,17 +1,7 @@
-<div class="my-2 d-flex justify-content-end">
-  <% if @root_toggle %>
-    <%= link_to '< Voltar pra Lista de Deputados', root_path, class: "btn btn-sm btn-outline-dark border-0 rounded-3 shadow-sm" %>
-  <% end %>
-</div>
-
-<div class="row justify-content-center">
-  <div class="col-lg-8 col-md-11">
-    <div class="card shadow-sm bg-body rounded-4 border-0">
-      <div class="card-body">
-        <%= turbo_frame_tag :upload_data do %>
-          <%= render "form", portfolio: @portfolio %>
-        <% end %>
-      </div>
-    </div>
+<%= turbo_frame_tag :upload_data do %>
+  <div class="d-flex align-items-center justify-content-end mb-2">
+    <%= link_to('< Voltar', root_path, class: "btn btn-sm btn-outline-dark border-0 rounded-3 shadow-sm") %>
   </div>
-</div>
+
+  <%= render "form", portfolio: @portfolio %>
+<% end %>

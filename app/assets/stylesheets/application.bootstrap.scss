@@ -11,6 +11,10 @@ body {
   flex: 0 0 auto;
 }
 
+.btn {
+  background-color: #f7f7f7;
+}
+
 @media only screen and (max-width: 960px) {
   .form-floating {
     width: 28%;

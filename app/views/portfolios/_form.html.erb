@@ -1,17 +1,14 @@
-<div class="text-center p-3">
+<div class="text-center">
   <h4>Selecionando arquivo!</h4>
 </div>
 
 <%= form_with(scope: :upload_data, url: synchronize_portfolios_path) do |form| %>
-
   <% if alert %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <%= alert %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
-
-
 
   <div class="row">
     <p class="form-text text-center">
@@ -39,7 +36,7 @@
   </div>
 
 
-  <div class="text-center py-4 pb-3">
+  <div class="text-center p-3">
     <%= form.submit "Importar", class: "btn btn-outline-dark border-0 rounded-3 shadow-sm" %>
   </div>
 

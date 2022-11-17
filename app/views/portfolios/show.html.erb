@@ -1,72 +1,73 @@
-<div class="m-2 d-flex justify-content-end">
-  <%= link_to('< Voltar pro Rank',
-    root_path(params: { filter: { year_id: @portfolio.node_group.parent.id, state_id: @portfolio.node_group.id } }),
+<div class="d-flex align-items-center justify-content-end mb-2">
+  <%= link_to('< Voltar',
+    root_path(
+      params: {
+        filter: { year_id: @portfolio.node_group.parent.id, state_id: @portfolio.node_group.id }
+      }
+    ),
     class: "btn btn-outline-dark btn-sm border-0 rounded-3 shadow-sm"
   )%>
 </div>
 
-<div class="card shadow-sm rounded-3 shadow-sm border-0 mb-2">
-  <div class="card-body">
-    <div class="row justify-content-center p-4">
-      <div class="col-auto border border-1 rounded-3 shadow-sm p-4">
-        <div class="d-flex align-items-center justify-content-center">
-          <%= image_tag(
-            image_portfolio_url(@portfolio.member.ide),
-            size: "140x173") %>
-          <ul>
-            <dt><p class="text-center">Portfólio do(a) Deputado(a)</p></dt>
-            <dd>Nome: <%= @portfolio.member.name %></dd>
-            <dd>CPF: <%= @portfolio.member.cpf_formatted %></dd>
-            <dd>Número de Cadastro Federal (ide): <%= @portfolio.member.ide %></dd>
-            <dd>Partido Politico: <%= @portfolio.political_party %></dd>
-            <dd>UF: <%= @portfolio.uf %></dd>
-            <dd>Legislatura: <%= @portfolio.legislature %></dd>
-          </ul>
-        </div>
-
-        <dt> Despesa Pública de maior valor: <%= @portfolio.greater_expense_companies.value.format %> </dt>
-        <dt> Referente à: <%= @portfolio.greater_expense_companies.description %></dt>
-      </div>
-    </div>
-
-    <p class="text-sencodary form-text pt-2"><em>Lista de suas Despesas Públicas ordenadas por valor mais alto.</em><p>
-    <% @portfolio.expenses_order_by_greater.each_with_index do |expense, i| %>
-      <ul styele="list-style-type: circle;" class="px-0">
-        <dt><%= "#{i.next}. #{expense.expense_category.description}" %>
-          <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
-        <dd>
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Data de Emissão</th>
-                  <th scope="col">Valor</th>
-                  <th scope="col">Empresa Fornecedora</th>
-                  <th scope="col">Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% expense.expense_companies.order(value_cents: :desc).each_with_index do |ec, i| %>
-                  <tr>
-                    <th scope="row"><%= "#{i.next}º" %></th>
-                    <td><%= ec.issue_at_formatted %></td>
-                    <td><%= ec.value.format %></td>
-                    <td><%= ec.company.name %></td>
-                    <td>
-                      <%= link_to(
-                        "Link da Nota",
-                        fiscal_document_url(ec.ide_document),
-                        class: "btn btn-outline-dark btn-sm border-0 rounded-3 shadow-sm"
-                      )%>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </dd>
+<div class="row justify-content-center px-2 mb-3">
+  <div class="col-auto border border-1 rounded-3 shadow-sm p-2">
+    <div class="d-flex align-items-center">
+      <%= image_tag(
+        image_portfolio_url(@portfolio.member.ide),
+        size: "140x173") %>
+      <ul>
+        <dt><p class="text-center">Portfólio do(a) Deputado(a)</p></dt>
+        <dd>Nome: <%= @portfolio.member.name %></dd>
+        <dd>CPF: <%= @portfolio.member.cpf_formatted %></dd>
+        <dd>Número de Cadastro Federal (ide): <%= @portfolio.member.ide %></dd>
+        <dd>Partido Politico: <%= @portfolio.political_party %></dd>
+        <dd>UF: <%= @portfolio.uf %></dd>
+        <dd>Legislatura: <%= @portfolio.legislature %></dd>
       </ul>
-    <% end %>
+    </div>
+    <dt> Despesa Pública de maior valor: <%= @portfolio.greater_expense_companies.value.format %> </dt>
+    <dt> Referente à: <%= @portfolio.greater_expense_companies.description %></dt>
   </div>
 </div>
+
+<div class="text-sencodary form-text py-2">
+  <em>Lista de Despesas Públicas ordenadas por valor mais alto.</em>
+</div>
+
+<% @portfolio.expenses_order_by_greater.each_with_index do |expense, i| %>
+  <ul styele="list-style-type: circle;" class="px-0">
+    <dt><%= "#{i.next}. #{expense.expense_category.description}" %> <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
+    <dd>
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Data de Emissão</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Empresa Fornecedora</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% expense.expense_companies.order(value_cents: :desc).each_with_index do |ec, i| %>
+              <tr>
+                <th scope="row"><%= "#{i.next}º" %></th>
+                <td><%= ec.issue_at_formatted %></td>
+                <td><%= ec.value.format %></td>
+                <td><%= ec.company.name %></td>
+                <td>
+                  <%= link_to(
+                    "Link da Nota",
+                    fiscal_document_url(ec.ide_document),
+                    class: "btn btn-outline-dark btn-sm border-0 rounded-3 shadow-sm"
+                  )%>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </dd>
+  </ul>
+<% end %>
