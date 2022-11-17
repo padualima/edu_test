@@ -10,6 +10,10 @@ Have you heard of CEAP? The Quota for the Exercise of Parliamentary Activity, de
 ## Result of Lean Inception
 Here the [Documentation](https://drive.google.com/file/d/1ro5lDbXB15_xWtG_17dE7VrH8Yc1ff10/view?usp=sharing) made available of the result of the Lean Inception for the development of the APP.
 
+### Result Pitch!
+<img width="1438" alt="Captura de Tela 2022-11-17 às 14 31 42" src="https://user-images.githubusercontent.com/31924649/202517188-f9f902ff-6cac-4ddf-a33f-ff1b44c53f62.png">
+
+
 ## Get Started!
 
 ### Docker (recommended)
