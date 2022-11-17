@@ -89,6 +89,11 @@ module Actions
             .pluck("sum(value_cents)")
             .first
           )
+
+          expense.portfolio.expenses.order(amount_cents: :desc).each_with_index do |e, i|
+            position = i.next
+            e.update!(position: position) if position != e.position
+          end
         end
         @log.info("Finish update amount to Expenses")
 
