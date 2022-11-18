@@ -97,6 +97,7 @@ GEM
       railties (>= 5.0.0)
     faker (3.0.0)
       i18n (>= 1.8.11, < 2)
+    foreman (0.87.2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -250,6 +251,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.1)
   factory_bot_rails (~> 6.2)
   faker (~> 3.0)
+  foreman (~> 0.87.2)
   i18n (~> 1.12)
   jbuilder
   jsbundling-rails

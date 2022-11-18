@@ -1,4 +1,7 @@
 # Gems Install
 bundle check || bundle install
-# Run servidor
-bundle exec puma -C config/puma.rb
+
+bundle exec yarn
+
+# Run Foreman Server
+rm -f tmp/pids/server.pid && bundle exec bin/dev

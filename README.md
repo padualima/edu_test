@@ -29,13 +29,6 @@ But, if you haven't installed it yet, I recommend the links below for installati
 
 Inside the project directory:
 
-Run the command below to copy the `.env.docker`:
-
-```
-cp .env.docker.sample .env.docker
-```
-
-
 Run to build the docker image:
 ```
 docker-compose up --build

@@ -24,3 +24,7 @@ ENV BUNDLE_PATH /gems
 
 # Copy code into container
 COPY . .
+
+# Add a script to be executed every time the container starts.
+EXPOSE 3000
+CMD ["bin/dev"]
