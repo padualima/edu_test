@@ -78,46 +78,37 @@ module Actions
         @log.info("Data sync finished")
       end
 
-      def expenses_incrementer # TODO: Refactor this method
-        portfolios = Portfolio
-          .joins(:node_group)
-          .where(node_groups: { slug: @filter, ancestry: @group.id })
+      def expenses_incrementer
+        pluck_fl = -> (objects, q) { objects.pluck(q).first }
+        update_position = lambda do |objects, order_by|
+          objects.order(order_by).each_with_index do |obj, i|
+            i = i.next
+            obj.update!(position: i) if i != obj.position
+          end
+        end
 
         @log.info("Calculating the total value of each Expense of this Portfolio")
-        Expense.where(portfolio: portfolios).find_each do |expense|
-          expense.update!(
-            amount_cents: expense.expense_companies.pluck("sum(value_cents)").first
-          )
-
-          expense.portfolio.expenses.order(amount_cents: :desc).each_with_index do |e, i|
-            position = i.next
-            e.update!(position: position) if position != e.position
-          end
+        Expense.where(portfolio: portfolios).find_each do |e|
+          e.update!(amount_cents: pluck_fl.call(e.expense_companies, "sum(value_cents)"))
+          update_position.call(e.portfolio.expenses, amount_cents: :desc)
         end
         @log.info("Finish update amount to Expenses")
 
         @log.info("Calculating the value of all expenses for the Portfolio")
-        portfolios.find_each do |portfolio|
-          portfolio.update!(
-            expenses_amount_cents: portfolio.expenses.pluck("sum(amount_cents)").first
-          )
-
-          portfolio
-            .node_group
-            .portfolios
-            .order(expenses_amount_cents: :desc)
-            .each_with_index do |port, i|
-              position = i.next
-              port.update!(position: position) if position != port.position
-            end
+        portfolios.find_each do |pf|
+          pf.update!(expenses_amount_cents: pluck_fl.call(pf.expenses, "sum(amount_cents)"))
+          update_position.call(pf.node_group.portfolios, expenses_amount_cents: :desc)
         end
         @log.info("Finish update expenses_amount to Portfolios")
       end
 
       protected
 
-      def format_document(document)
-        document.gsub(/\W/, '')
+      def format_document(document); document.gsub(/\W/, '') end
+      def portfolios
+        @portfolios ||= Portfolio
+          .joins(:node_group)
+          .where(node_groups: { slug: @filter, ancestry: @group.id })
       end
     end
   end
