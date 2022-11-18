@@ -10,7 +10,7 @@
 </div>
 
 <div class="row justify-content-center px-2 mb-3">
-  <div class="col-auto border border-1 rounded-3 shadow-sm p-2">
+  <div class="col-auto border border-1 rounded-3 shadow-sm p-4">
     <div class="d-flex align-items-center">
       <%= image_tag(
         image_portfolio_url(@portfolio.member.ide),
@@ -34,7 +34,7 @@
   <em>Lista de Despesas Públicas ordenadas por valor mais alto.</em>
 </div>
 
-<% @expenses.each_with_index do |expense, i| %>
+<% @expenses.each do |expense| %>
   <ul styele="list-style-type: circle;" class="px-0">
     <dt><%= "#{expense.position}. #{expense.expense_category.description}" %> <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
     <dd>
@@ -58,7 +58,7 @@
                 <td><%= ec.company.name %></td>
                 <td>
                   <%= link_to(
-                    "Link da Nota",
+                    "NF-e",
                     fiscal_document_url(ec.ide_document),
                     class: "btn btn-outline-dark btn-sm border-0 rounded-3 shadow-sm"
                   )%>
@@ -67,7 +67,7 @@
             <% end %>
           </tbody>
         </table>
-        <div class="d-flex justify-content-center"><%= paginate @expenses, window: 2, remote: true %></div>
+        <div class="d-flex justify-content-center"><%= paginate @expenses, window: 2 %></div>
       </div>
     </dd>
   </ul>

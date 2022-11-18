@@ -250,6 +250,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.1)
   factory_bot_rails (~> 6.2)
   faker (~> 3.0)
+  i18n (~> 1.12)
   jbuilder
   jsbundling-rails
   kaminari (~> 1.2, >= 1.2.2)

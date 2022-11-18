@@ -19,15 +19,17 @@
           <tr>
             <th scope="col"></th>
             <th scope="col">Deputado(a)</th>
+            <th scope="col">CPF</th>
             <th scope="col">Total de Gastos</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          <% @portfolios.each_with_index do |portfolio, i| %>
+          <% @portfolios.each do |portfolio| %>
             <tr>
-              <th scope="row"><%= "#{i.next}º" %></th>
+              <th scope="row"><%= "#{portfolio.position}º" %></th>
               <td><%= portfolio.member.name %></td>
+              <td><%= portfolio.member.cpf_formatted %></td>
               <td><%= portfolio.expenses_amount.format %></td>
               <td><%= link_to('Visualizar Portfolio', portfolio_path(portfolio),
                   class: "btn btn-outline-dark btn-sm border-0 shadow-sm rounded-3") %></td>
@@ -35,7 +37,7 @@
           <% end %>
         </tbody>
       </table>
-      <div class="d-flex justify-content-center"><%= paginate @portfolios, window: 2%></div>
+      <div class="d-flex justify-content-center"><%= paginate @portfolios, window: 2 %></div>
     </div>
   <% end %>
 <% else %>
