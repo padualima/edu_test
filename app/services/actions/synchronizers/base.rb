@@ -25,13 +25,13 @@ module Actions
         @log.info("Starting data synchronization")
 
         @data.each do |row|
-          group =
+          @group =
             NodeGroup.find_or_create_by!(slug: row[:numano], kind: NodeGroup.kinds['year'])
 
           group_child = NodeGroup.find_or_create_by!(
             slug: row[:sguf].upcase,
             kind: NodeGroup.kinds['state'],
-            ancestry: group.id
+            ancestry: @group.id
           )
 
           member = Member.find_or_create_by!(
@@ -78,28 +78,38 @@ module Actions
         @log.info("Data sync finished")
       end
 
-      def expenses_incrementer
-        portfolios = Portfolio.joins(:node_group).where(node_groups: { slug: @filter })
+      def expenses_incrementer # TODO: Refactor this method
+        portfolios = Portfolio
+          .joins(:node_group)
+          .where(node_groups: { slug: @filter, ancestry: @group.id })
 
-        @log.info("Starting update amount to Expenses")
+        @log.info("Calculating the total value of each Expense of this Portfolio")
         Expense.where(portfolio: portfolios).find_each do |expense|
           expense.update!(
-            amount_cents: ExpenseCompany
-            .where(expense_id: expense.id)
-            .pluck("sum(value_cents)")
-            .first
+            amount_cents: expense.expense_companies.pluck("sum(value_cents)").first
           )
+
+          expense.portfolio.expenses.order(amount_cents: :desc).each_with_index do |e, i|
+            position = i.next
+            e.update!(position: position) if position != e.position
+          end
         end
         @log.info("Finish update amount to Expenses")
 
-        @log.info("Starting update expenses_amount to Portfolios")
+        @log.info("Calculating the value of all expenses for the Portfolio")
         portfolios.find_each do |portfolio|
           portfolio.update!(
-            expenses_amount_cents: Expense
-              .where(portfolio_id: portfolio)
-              .pluck("sum(amount_cents)")
-              .first
+            expenses_amount_cents: portfolio.expenses.pluck("sum(amount_cents)").first
           )
+
+          portfolio
+            .node_group
+            .portfolios
+            .order(expenses_amount_cents: :desc)
+            .each_with_index do |port, i|
+              position = i.next
+              port.update!(position: position) if position != port.position
+            end
         end
         @log.info("Finish update expenses_amount to Portfolios")
       end

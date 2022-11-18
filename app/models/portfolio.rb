@@ -1,4 +1,5 @@
 class Portfolio < ApplicationRecord
+  paginates_per 10
   belongs_to :node_group
   belongs_to :member
   has_many :expenses
