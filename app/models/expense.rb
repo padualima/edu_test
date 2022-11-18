@@ -1,4 +1,6 @@
 class Expense < ApplicationRecord
+  paginates_per 1
+
   belongs_to :portfolio
   belongs_to :expense_category
   has_many :expense_companies
