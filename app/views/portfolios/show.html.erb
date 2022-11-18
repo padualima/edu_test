@@ -30,16 +30,13 @@
   </div>
 </div>
 
-<div class="text-sencodary form-text py-2">
-  <em>Lista de Despesas Públicas ordenadas por valor mais alto.</em>
-</div>
-
 <% @expenses.each do |expense| %>
   <ul styele="list-style-type: circle;" class="px-0">
     <dt><%= "#{expense.position}. #{expense.expense_category.description}" %> <b>(<em>TOTAL: <%= expense.amount.format %></em>)</b></dt>
     <dd>
       <div class="table-responsive">
         <table class="table table-hover table-sm">
+        <caption><em>Lista de suas Despesas Públicas com <%= expense.expense_category.description %>.</em><caption>
           <thead>
             <tr>
               <th scope="col"></th>

@@ -13,9 +13,12 @@ module Actions
           liberal_parsing: true
         )
 
-        return false unless csv_parse.first.headers == required_headers
-
-        @data = csv_parse.map(&:to_h)
+        @data = csv_parse.map do |row|
+          return false unless row.headers == required_headers
+          %i[txnomeparlamentar sguf txtdescricao
+            txtdescricaoespecificacao txtfornecedor].each { |h| row[h]&.upcase! }
+          row.to_h
+        end
 
         @log.info("filtering the data")
 
