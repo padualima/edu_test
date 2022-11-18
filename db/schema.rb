@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_17_190858) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_17_195317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_17_190858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "expenses_amount_cents"
+    t.integer "position"
     t.index ["member_id"], name: "index_portfolios_on_member_id"
     t.index ["node_group_id"], name: "index_portfolios_on_node_group_id"
   end
