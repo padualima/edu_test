@@ -1,8 +1,8 @@
 class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: %i[show]
   before_action :prepare_filter, only: %i[index]
-  before_action :select_states_form_filter, only: %i[index]
-  before_action :prepare_form, only: %i[upload_data]
+  before_action :select_by_available_years, only: %i[index]
+  before_action :select_by_allowed_states, only: %i[upload_data]
 
   # GET /portfolios
   def index
@@ -61,15 +61,11 @@ class PortfoliosController < ApplicationController
     @y_group, @s_group = filter_params.present? ? filter_params.values : get_state_by_oldest_year
   end
 
-  def prepare_form
-    select_by_allowed_states
-  end
-
   def select_by_allowed_states
     @select_by_allowed_states = NodeGroup.states_allowed
   end
 
-  def select_states_form_filter
-    @select_states_form_filter = NodeGroup.by_years.order(:slug).pluck(:slug, :id)
+  def select_by_available_years
+    @select_by_available_years = NodeGroup.by_years.order(:slug).pluck(:slug, :id)
   end
 end

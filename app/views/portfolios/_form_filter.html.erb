@@ -6,14 +6,14 @@
           <div class="form-floating mx-1">
             <%= form.select(
               :year_id,
-              options_for_select(@select_states_form_filter),
+              options_for_select(@select_by_available_years),
               { include_blank: true },
               {
                 class: "form-select border-0 bg-light shadow-sm rounded-4 text-center",
                 id: "years_select",
                 required: true,
                 aria: { label: "Select year" },
-                data: { target: "years", action: "change->form-filter#remoteselect" }
+                data: { form_filter_target: "years", action: "change->form-filter#remoteselect" }
               }) %>
             <label>Ano</label>
           </div>
