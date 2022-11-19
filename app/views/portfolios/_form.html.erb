@@ -10,31 +10,33 @@
     </div>
   <% end %>
 
-  <div class="row">
-    <p class="form-text text-center">
-      Clique <%= link_to 'Aqui', static_file_url, target: '_blank' %>
-      para você ter acesso aos dados abertos da Câmara dos Deputados para importar!</p>
-  </div>
-
-  <div class="row align-items-center justify-content-center">
-    <div class="col-auto d-flex flex-column align-items-center justify-content-center mb-3 mx-1">
-      <%= form.file_field :data, required: true %>
-      <div class="row form-text mt-4">Use `crtl + click` para desmarcar um item do filtro.</div>
-      <div class="row form-text">Caso não forneça um filtro, será importado todos os Estados do arquivo!</div>
+  <div class="container mb-3">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <p class="form-text text-center">
+          Clique <%= link_to 'Aqui', static_file_url, target: '_blank' %>
+          para você ter acesso aos dados abertos da Câmara dos Deputados para importar!</p>
+      </div>
+      <div class="col-12 d-flex flex-wrap justify-content-center align-items-center">
+        <div class="col-auto m-2">
+          <%= form.file_field :data, required: true %>
+        </div>
+        <div class="col-7 col-sm-6 col-lg-4 col-xl-3 m-2 d-flex flex-column justify-content-center">
+          <%= form.label :filter, "Filtrar por Estados:", class: "form-label text-center" %>
+          <%=
+            form.select(
+              :filter,
+              options_for_select(@select_by_allowed_states),
+              {},
+              { class: "form-select shadow-sm rounded-3 text-center", multiple: true, size: 6 }
+            )
+          %>
+          <div class="form-text">Use `crtl + click` para marcar ou desmarcar items.
+            Caso não forneça filtros, será importado os dados de todos os Estados!</div>
+        </div>
+      </div>
     </div>
-    <div class="col-auto mb-3 mx-1">
-      <%= form.label :filter, "Filtrar por Estados:", class: "form-label" %>
-      <%=
-        form.select(
-          :filter,
-          options_for_select(@select_by_allowed_states),
-          {},
-          { class: "form-select shadow-sm rounded-3 text-center", multiple: true, size: 5 }
-        )
-      %>
-    </div>
   </div>
-
 
   <div class="text-center pb-3 pt-2">
     <%= form.submit "Importar", class: "btn btn-outline-dark border-0 rounded-3 shadow-sm" %>
