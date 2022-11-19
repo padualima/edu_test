@@ -15,8 +15,13 @@ module Actions
 
         @data = csv_parse.map do |row|
           return false unless row.headers == required_headers
-          %i[txnomeparlamentar sguf txtdescricao
-            txtdescricaoespecificacao txtfornecedor].each { |h| row[h]&.upcase! }
+
+          %i[txnomeparlamentar sguf txtdescricao txtdescricaoespecificacao txtfornecedor]
+            .each do |h|
+              row[h]&.upcase!
+              row[h].delete!("/[.]$/") if row[h].match?(/[.]$/)
+            end
+
           row.to_h
         end
 

@@ -2,27 +2,32 @@
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 body {
-  background-color: #f4f4f4;
+  background-color: #e9ecef;
   font-family: sans-serif;
-}
 
-.form-floating {
-  width: 22%;
-  flex: 0 0 auto;
-}
+  .form-floating {
+    width: 22%;
+    flex: 0 0 auto;
+  }
 
-.btn {
-  background-color: #f7f7f7;
-}
+  .btn {
+    background-color: #f7f7f7;
+  }
 
-.pagination {
-  --bs-pagination-bg: #f7f7f7;
-  --bs-pagination-color: #212529;
-  --bs-pagination-disabled-bg: #f7f7f7;
-  --bs-pagination-active-bg: #212529;
-  --bs-pagination-active-border-color: #f7f7f7;
-  --bs-pagination-hover-color: #212529;
-  --bs-pagination-focus-color: #212529;
+  .pagination {
+    --bs-pagination-bg: #f7f7f7;
+    --bs-pagination-color: #212529;
+    --bs-pagination-disabled-bg: #f7f7f7;
+    --bs-pagination-disabled-color: #212529;
+    --bs-pagination-active-bg: #212529;
+    --bs-pagination-active-border-color: #f7f7f7;
+    --bs-pagination-focus-color: #e9ecef;
+    --bs-pagination-focus-bg:#212529;
+    --bs-pagination-focus-box-shadow: none;
+    --bs-pagination-hover-color: #e9ecef;
+    --bs-pagination-hover-bg:  #212529;
+    --bs-pagination-hover-border-color: #e9ecef;
+  }
 }
 
 @media only screen and (max-width: 960px) {
