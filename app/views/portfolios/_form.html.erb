@@ -2,7 +2,7 @@
   <h4>Selecionando arquivo!</h4>
 </div>
 
-<%= form_with(scope: :upload_data, url: synchronize_portfolios_path) do |form| %>
+<%= form_with(scope: :upload_data, url: synchronize_portfolios_path, data: { controller: "portfolios" }) do |form| %>
   <% if alert %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <%= alert %>
@@ -39,7 +39,10 @@
   </div>
 
   <div class="text-center pb-3 pt-2">
-    <%= form.submit "Importar", class: "btn btn-outline-dark border-0 rounded-3 shadow-sm" %>
+    <%= form.submit(
+      "Importar",
+      class: "btn btn-outline-dark border-0 rounded-3 shadow-sm",
+      data: { portfolios_target: 'import', action: "click->portfolios#disableButton"}
+    ) %>
   </div>
-
 <% end %>

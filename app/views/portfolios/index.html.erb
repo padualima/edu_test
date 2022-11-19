@@ -9,34 +9,34 @@
     <%= render partial: "form_filter" %>
 
     <div class="table-responsive">
-      <table class="table table-hover table-sm">
-        <% group = @portfolios.first.node_group %>
-        <caption><em>Lista dos Deputados do Estado <b><%= group.slug %></b>
-          que mais realizaram despesas no Ano de <b><%= group.parent.slug %></b>.</em>
-        </caption>
+      <div >
+        <table class="table table-hover table-sm">
+          <% group = @portfolios.first.node_group %>
+          <caption><em>Lista dos Deputados do Estado <b><%= group.slug %></b>
+            que mais realizaram despesas no Ano de <b><%= group.parent.slug %></b>.</em>
+          </caption>
 
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Deputado(a)</th>
-            <th scope="col">CPF</th>
-            <th scope="col">Total de Gastos</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @portfolios.each do |portfolio| %>
+          <thead>
             <tr>
-              <th scope="row"><%= "#{portfolio.position}º" %></th>
-              <td><%= portfolio.member.name %></td>
-              <td><%= portfolio.member.cpf_formatted %></td>
-              <td><%= portfolio.expenses_amount.format %></td>
-              <td><%= link_to('Visualizar Portfolio', portfolio_path(portfolio),
-                  class: "btn btn-outline-dark btn-sm border-0 shadow-sm rounded-3") %></td>
+              <th scope="col"></th>
+              <th scope="col">Deputado(a)</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Total de Gastos</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody data-controller="portfolios">
+            <% @portfolios.each do |portfolio| %>
+              <tr data-action="click->portfolios#linkTo" data-portfolios-target="table" data-portfolios-url-param="<%= portfolio_path(portfolio.id) %>">
+                <th scope="row"><%= "#{portfolio.position}º" %></th>
+                <td><%= portfolio.member.name %></td>
+                <td><%= portfolio.member.cpf_formatted %></td>
+                <td><%= portfolio.expenses_amount.format %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+          </div>
       <div class="d-flex justify-content-center"><%= paginate @portfolios, window: 2 %></div>
     </div>
   <% end %>

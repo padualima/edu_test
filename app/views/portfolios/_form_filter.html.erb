@@ -15,7 +15,7 @@
                 aria: { label: "Select year" },
                 data: { target: "years", action: "change->form-filter#remoteselect" }
               }) %>
-            <label>Selecione Ano</label>
+            <label>Ano</label>
           </div>
 
           <div class="form-floating mx-1">
@@ -30,7 +30,7 @@
                 aria: { label: "Select state" },
                 data: { form_filter_target: "states"}
               }) %>
-            <label>Selecione Estado</label>
+            <label>Estado</label>
           </div>
           <%= form.submit "Filtrar", class: "btn btn-sm btn-outline-dark border-0 mx-1 rounded-3 shadow-sm", turbo_frame: :filter_field  %>
         </div>

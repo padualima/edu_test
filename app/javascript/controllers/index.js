@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import FormFilterController from "./form_filter_controller"
 application.register("form-filter", FormFilterController)
+
+import PortfoliosController from "./portfolios_controller"
+application.register("portfolios", PortfoliosController)

@@ -7,7 +7,7 @@ export default class extends Controller {
   remoteselect(e) {
     const id = e.target.value
     const url = `groups/${id}/states`
-    // const select = document.querySelector("#states_select")
+
     fetch(url)
       .then(response => response.json())
       .then(data => this.updateDropdown(data))

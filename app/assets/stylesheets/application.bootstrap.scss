@@ -5,11 +5,6 @@ body {
   background-color: #e9ecef;
   font-family: sans-serif;
 
-  .form-floating {
-    width: 22%;
-    flex: 0 0 auto;
-  }
-
   .btn {
     background-color: #f7f7f7;
   }
@@ -28,6 +23,11 @@ body {
     --bs-pagination-hover-bg:  #212529;
     --bs-pagination-hover-border-color: #e9ecef;
   }
+}
+
+.form-floating {
+  width: 22%;
+  flex: 0 0 auto;
 }
 
 @media only screen and (max-width: 960px) {
