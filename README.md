@@ -11,7 +11,8 @@ Have you heard of CEAP? The Quota for the Exercise of Parliamentary Activity, de
 Here the [Documentation](https://drive.google.com/file/d/1ro5lDbXB15_xWtG_17dE7VrH8Yc1ff10/view?usp=sharing) made available of the result of the Lean Inception for the development of the APP.
 
 ### Result Pitch!
-<img width="1433" alt="index" src="https://user-images.githubusercontent.com/31924649/202631519-2120b3cc-8848-4e97-9d07-73b363e97b38.png">
+<img width="1438" alt="index" src="https://user-images.githubusercontent.com/31924649/202854471-d14f26cb-7324-4256-933c-2968bc7ef29c.png">
+
 
 
 
