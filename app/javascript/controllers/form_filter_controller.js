@@ -8,9 +8,13 @@ export default class extends Controller {
     const id = e.target.value
     const url = `groups/${id}/states`
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => this.updateDropdown(data))
+    if (id) {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => this.updateDropdown(data))
+    } else {
+      this.updateDropdown([])
+    }
   }
 
   updateDropdown(data) {
