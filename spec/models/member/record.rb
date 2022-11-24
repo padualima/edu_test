@@ -13,6 +13,7 @@ RSpec.describe Member::Record, type: :model do
       it { is_expected.to validate_presence_of(:cpf) }
       it { is_expected.to validate_uniqueness_of(:cpf) }
       it { is_expected.to_not allow_value(Faker::CPF.formatted).for(:cpf) }
+      it { is_expected.to_not allow_value("123.567.911").for(:cpf) } # length is 11 but invalid
       it { is_expected.to allow_value(Faker::CPF.number).for(:cpf) }
     end
 
